@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 # Render the templated Homebrew formula for a concrete tag.
 #
-# The committed ``Formula/flow-cli.rb`` carries ``__TAG__`` and
+# The committed ``Formula/mycelium-cli.rb`` carries ``__TAG__`` and
 # ``__SHA256__`` placeholders; this script downloads the release
 # tarball from GitHub, computes its sha256, and prints a fully
 # resolved formula to stdout.
 #
 # Usage:
-#   bin/render-formula v2.0.6 > /tmp/flow-cli.rb        # local smoke
-#   bin/render-formula v2.0.6 --in-place                # rewrite Formula/flow-cli.rb
+#   bin/render-formula v2.0.6 > /tmp/mycelium-cli.rb        # local smoke
+#   bin/render-formula v2.0.6 --in-place                # rewrite Formula/mycelium-cli.rb
 #
-# Source of truth: the ``mirror-homebrew-flow`` GitHub Actions workflow
+# Source of truth: the ``mirror-homebrew-mycelium`` GitHub Actions workflow
 # runs the same logic at every ``v*`` tag push.
 set -euo pipefail
 
@@ -32,8 +32,8 @@ case "$TAG" in
 esac
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-FORMULA="${SCRIPT_DIR%/bin}/Formula/flow-cli.rb"
-TARBALL_URL="https://github.com/angleto/flow/archive/refs/tags/${TAG}.tar.gz"
+FORMULA="${SCRIPT_DIR%/bin}/Formula/mycelium-cli.rb"
+TARBALL_URL="https://github.com/angleto/mycelium/archive/refs/tags/${TAG}.tar.gz"
 
 if [[ ! -f "$FORMULA" ]]; then
   echo "error: cannot find formula at $FORMULA" >&2

@@ -1,19 +1,19 @@
-class FlowCli < Formula
+class MyceliumCli < Formula
   include Language::Python::Virtualenv
 
-  desc "Keyboard-first CLI for Flow (tasks, notes, time, calendar)"
-  homepage "https://github.com/angleto/flow"
+  desc "Keyboard-first CLI for Mycelium (tasks, notes, time, calendar)"
+  homepage "https://github.com/angleto/mycelium"
   # NOTE: this file is a template. The url + sha256 below carry tag
   # and digest placeholders, resolved at release time by either:
   #   - ``bin/render-formula <version>`` (local smoke test), or
-  #   - the ``mirror-homebrew-flow`` GitHub Actions workflow on every
+  #   - the ``mirror-homebrew-mycelium`` GitHub Actions workflow on every
   #     ``v*`` tag push (canonical publication path).
   # Do not commit a real url/sha256 here; the workflow rewrites them
   # against the tag being released.
-  url "https://github.com/angleto/flow/archive/refs/tags/v2.0.140.tar.gz"
-  sha256 "64295f5f3e57e2ae40af580c9f20f8676f2b04b1359f9c351feb36073e739703"
+  url "https://github.com/angleto/mycelium/archive/refs/tags/v2.0.141.tar.gz"
+  sha256 "4237d37e97a9272305318c52afaf08a5465f43268a1893be963eb8b500018638"
   license "AGPL-3.0-or-later"
-  head "https://github.com/angleto/flow.git", branch: "v2.0"
+  head "https://github.com/angleto/mycelium.git", branch: "v2.0"
 
   depends_on "python@3.12"
   # ``pydantic-core`` is a Rust extension; brew installs python resources
@@ -21,19 +21,15 @@ class FlowCli < Formula
   # source. ``rust`` is a build-only dep.
   depends_on "rust" => :build
 
-  # Optional runtime dep used by ``flow note voice``. Homebrew formulae
+  # Optional runtime dep used by ``mycelium note voice``. Homebrew formulae
   # cannot declare ``=> :optional`` for runtime since 2020; if the user
   # wants voice recording they ``brew install sox`` themselves. The CLI
   # prints a helpful hint when sox/ffmpeg is missing.
 
-  conflicts_with "flow",
-    because: "both install a `flow` binary. Use Meta's Flow type checker via " \
-             "`brew install --force flow` if you really need both."
-
   # Python resources. Regenerate when bumping deps:
   #   uv venv /tmp/poet-env --python 3.12
   #   VIRTUAL_ENV=/tmp/poet-env uv pip install homebrew-pypi-poet 'setuptools<81' \
-  #     /path/to/flow/cli
+  #     /path/to/mycelium/cli
   #   /tmp/poet-env/bin/poet --resources typer --also rich --also httpx \
   #     --also platformdirs --also tomli-w --also pydantic
   # then paste the blocks below.
@@ -158,18 +154,18 @@ class FlowCli < Formula
         brew install sox
 
       First run:
-        flow auth login --base-url https://flow.xeno.garden
+        mycelium auth login --base-url https://mycelium.xeno.garden
 
       Neovim integration:
-        https://github.com/angleto/flow/tree/main/nvim/flow.nvim
+        https://github.com/angleto/mycelium/tree/main/nvim/mycelium-nvim
     EOS
   end
 
   test do
-    assert_match "flow-cli #{version}", shell_output("#{bin}/flow --version")
-    # ``flow auth status`` exits 1 without a credential; that itself
+    assert_match "mycelium-cli #{version}", shell_output("#{bin}/mycelium --version")
+    # ``mycelium auth status`` exits 1 without a credential; that itself
     # exercises argument parsing + error rendering.
-    output = shell_output("#{bin}/flow auth status 2>&1", 1)
+    output = shell_output("#{bin}/mycelium auth status 2>&1", 1)
     assert_match "not logged in", output
   end
 end
