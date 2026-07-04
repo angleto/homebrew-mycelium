@@ -11,7 +11,7 @@ class MyceliumCli < Formula
   # Do not commit a real url/sha256 here; the workflow rewrites them
   # against the tag being released.
   url "https://github.com/angleto/mycelium/archive/refs/tags/v2.1.26.tar.gz"
-  sha256 "720398dc9a35fd3ac0795e771b95e692f72e74587f3d4b751c65e4405ba10f74"
+  sha256 "0b033ee3270fc0baab26a99f54149c622635c5ace35fb010880a272f7876d283"
   license "AGPL-3.0-or-later"
   head "https://github.com/angleto/mycelium.git", branch: "v2.0"
 
