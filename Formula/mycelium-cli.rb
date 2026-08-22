@@ -10,8 +10,8 @@ class MyceliumCli < Formula
   #     ``v*`` tag push (canonical publication path).
   # Do not commit a real url/sha256 here; the workflow rewrites them
   # against the tag being released.
-  url "https://github.com/angleto/mycelium/archive/refs/tags/v2.2.16.tar.gz"
-  sha256 "5a49f4fcf4634dd171fb54c5e5da3ec844a05a36a978e68bf612ee7b47e2f6c3"
+  url "https://github.com/angleto/mycelium/archive/refs/tags/v2.2.17.tar.gz"
+  sha256 "5e3b80ca3e1f980650daa00c2a2bbbb63bdd8d4a06287150c851d335ec663650"
   license "AGPL-3.0-or-later"
   head "https://github.com/angleto/mycelium.git", branch: "v2.0"
 
