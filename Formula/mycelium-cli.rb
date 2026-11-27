@@ -10,8 +10,8 @@ class MyceliumCli < Formula
   #     ``v*`` tag push (canonical publication path).
   # Do not commit a real url/sha256 here; the workflow rewrites them
   # against the tag being released.
-  url "https://github.com/angleto/mycelium/archive/refs/tags/2.4.26.tar.gz"
-  sha256 "2ab343eb522da0ca529e22933555edd287bf9e4500530bb7e4a78c1e3713edeb"
+  url "https://github.com/angleto/mycelium/archive/refs/tags/2.4.27.tar.gz"
+  sha256 "fae9f50a4dbb495b5481113fa112258df0a12ed27cf806918b8e296097346e51"
   license "AGPL-3.0-or-later"
   head "https://github.com/angleto/mycelium.git", branch: "v2.0"
 
@@ -146,6 +146,10 @@ class MyceliumCli < Formula
     cd "cli" do
       venv.pip_install_and_link buildpath/"cli"
     end
+    # `mycelium completion <shell>`, not Typer's --show-completion: on zsh the
+    # latter writes a script that completes nothing when autoloaded from
+    # site-functions, which is where this puts it.
+    generate_completions_from_executable(bin/"mycelium", "completion", shells: [:bash, :zsh, :fish])
   end
 
   def caveats
@@ -167,5 +171,6 @@ class MyceliumCli < Formula
     # exercises argument parsing + error rendering.
     output = shell_output("#{bin}/mycelium auth status 2>&1", 1)
     assert_match "not logged in", output
+    assert_match "loadautofunc", (zsh_completion/"_mycelium").read
   end
 end
